@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const authController = require('./controllers/auth.controller');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -7,15 +8,11 @@ router.use((req, res, next) => {
 
 router.get('/', (req, res) => {
 	res.json({
-		message: 'Hello World'
+		message: 'Hello to REST Api'
 	})
 });
 
-router.use('/auth', (req, res) => {
-	res.json({
-		message: 'Hello World'
-	})
-});
+router.use('/auth', authController);
 
 router.use('/data', (req, res) => {
 	res.json({

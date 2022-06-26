@@ -72,6 +72,7 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 - imageUrl
 - role ['user', 'moderator', 'admin']
 - score
+- password
 
 ### Question model
 - body
