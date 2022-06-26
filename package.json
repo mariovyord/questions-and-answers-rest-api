@@ -1,0 +1,30 @@
+{
+	"name": "rest-api-answers",
+	"version": "1.0.0",
+	"description": "Questions and Answers is a React Single Page App, where you can ask a question and have other users answer. Inspired by Quora.",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon index.js",
+		"start": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mariovyord/rest-api-answers.git"
+	},
+	"keywords": [],
+	"author": "Mario Yordanov",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/mariovyord/rest-api-answers/issues"
+	},
+	"homepage": "https://github.com/mariovyord/rest-api-answers#readme",
+	"dependencies": {
+		"bcrypt": "^5.0.1",
+		"express": "^4.18.1",
+		"mongoose": "^6.4.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.18.0",
+		"nodemon": "^2.0.18"
+	}
+}
