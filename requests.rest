@@ -1,0 +1,13 @@
+GET http://localhost:3000/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmI4OTNmMTkwOWFiMGY1NDBmMDYwMmIiLCJ1c2VybmFtZSI6Im1hcmlvIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NTYyNzEzNTcsImV4cCI6MTY1NjI3MTM4N30.PtXMkK7wvpz-FAGT_ccTIBbisC89jk9sZMLCa4DSfxw
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+	"username": "mario",
+	"password": "123456"
+}

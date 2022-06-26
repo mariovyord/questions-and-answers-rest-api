@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const RefreshToken = require('../models/RefreshToken');
 const jwt = require('jsonwebtoken');
 
 exports.signup = async (userData) => {
@@ -17,11 +18,11 @@ exports.signup = async (userData) => {
 exports.login = async (username, password) => {
 	const user = await User.findOne({ username: username });
 
-	if (user) {
+	if (!user) {
 		throw new Error('Incorrect username or password');
 	}
 
-	const match = await User.comparePassword(password);
+	const match = user.comparePassword(password);
 
 	if (!match) {
 		throw new Error('Incorrect username or password');
@@ -30,14 +31,28 @@ exports.login = async (username, password) => {
 	return createSession(user);
 }
 
-function createSession(user) {
-	return {
+function createSession(userData) {
+	const user = {
+		_id: userData._id,
+		username: userData.username,
+		role: userData.role
+	}
+
+	const result = {
 		_id: user._id,
 		username: user.username,
-		authToken: jwt.sign({
-			_id: user._id,
-			username: user.username,
-			role: user.role
-		}, process.env.JWT_SECRET)
-	}
+		accessToken: jwt.sign(
+			user,
+			process.env.JWT_SECRET,
+			{ expiresIn: '30s' }
+		),
+		refreshToken: jwt.sign(user, process.env.JWT_REFRESH)
+	};
+
+	RefreshToken.create({
+		refreshToken: result.refreshToken,
+		userId: result._id
+	});
+
+	return result;
 }

@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const authController = require('./controllers/auth.controller');
+const { authenticateToken } = require('./middleware/auth.middleware');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
 	next();
 })
 
-router.get('/', (req, res) => {
+router.get('/', authenticateToken(), (req, res) => {
 	res.json({
 		message: 'Hello to REST Api'
 	})
