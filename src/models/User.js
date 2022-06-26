@@ -1,49 +1,48 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// CHECK USER DATA PROPERTIES 
+// TODO Add more verification
 const userSchema = new mongoose.Schema({
-	first_name: {
+	username: {
 		type: String,
-		required: true,
-		minlength: 3,
-		validate: {
-			validator: function (v) {
-				return /[a-zA-Z]+/.test(v);
-			},
-			message: props => `${props.value} is not a valid first name`
-		},
+		required: [true, 'Username is required'],
+		minlength: 4,
+		maxlength: 30,
+		unique: true,
 	},
-	last_name: {
+	firstName: {
 		type: String,
-		required: true,
-		minlength: 5,
-		validate: {
-			validator: function (v) {
-				return /[a-zA-Z]+/.test(v);
-			},
-			message: props => `${props.value} is not a valid last name`
-		},
+		required: [true, 'First name is required'],
+		minlength: 1,
+		maxlength: 30,
 	},
-	email: {
+	lastName: {
 		type: String,
-		required: true,
-		validate: {
-			validator: function (v) {
-				return /^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+/.test(v);
-			},
-			message: props => `${props.value} is not a valid email`
-		},
+		required: [true, 'Last name is required'],
+		minlength: 1,
+		maxlength: 30,
 	},
 	password: {
 		type: String,
-		required: true,
-		minlength: 4,
+		required: [true, 'Password name is required'],
+		minlength: 6,
+		maxlength: 60,
 	},
-	posts: {
-		type: [mongoose.Types.ObjectId],
-		ref: 'Post',
-		default: [],
+	bio: {
+		type: String,
+		maxlength: 60,
+	},
+	imageUrl: {
+		type: String,
+	},
+	role: {
+		type: String,
+		enum: ['user', 'moderator', 'admin'],
+		default: 'user'
+	},
+	score: {
+		type: Number,
+		default: 0,
 	}
 })
 
