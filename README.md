@@ -60,7 +60,7 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 
 - Route: '/questions/:id'
 - GET: Get all answers to the question
-- PUT, DELETE for owner (can be deleted only if there are no answers)
+- DELETE for owner (can be deleted only if there are no answers)
 
 ## Data models
 
@@ -80,7 +80,8 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 - hasAnswers
 
 ### Answer model
-- body (images?)
+- body
+- images
 - owner
 - question, ref: 'Question'
 - likes
