@@ -29,5 +29,7 @@ exports.refreshToken = () => (req, res, next) => {
 	}
 
 	/*TODO Check for Refresh Token 
-	if there is one, grant new Access Token and next()*/
+	if there is one, grant new Access Token and next()
+	
+	SHOULD WE HASH REFRESH TOKEN??? yes we should*/
 }

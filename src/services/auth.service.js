@@ -31,7 +31,22 @@ exports.login = async (username, password) => {
 	return createSession(user);
 }
 
-function createSession(userData) {
+exports.getNewTokens = async (refreshToken) => {
+	const token = await RefreshToken({ refreshToken: refreshToken });
+	if (token === null) return null;
+
+	return new Promise(function (resolve, reject) {
+		jwt.verify(token.refreshToken, process.env.JWT_REFRESH, (err, user) => {
+			if (err) return reject(err);
+
+			resolve(createSession(user));
+		})
+
+	})
+
+}
+
+async function createSession(userData) {
 	const user = {
 		_id: userData._id,
 		username: userData.username,
@@ -39,20 +54,26 @@ function createSession(userData) {
 	}
 
 	const result = {
-		_id: user._id,
-		username: user.username,
 		accessToken: jwt.sign(
 			user,
 			process.env.JWT_SECRET,
 			{ expiresIn: '30s' }
 		),
-		refreshToken: jwt.sign(user, process.env.JWT_REFRESH)
+		refreshToken: jwt.sign(
+			user,
+			process.env.JWT_REFRESH,
+			{ expiresIn: '30d' }
+		)
 	};
 
-	RefreshToken.create({
+	// TODO Delete old refresh token
+
+	const refreshToken = new RefreshToken({
 		refreshToken: result.refreshToken,
-		userId: result._id
-	});
+		userId: user._id
+	})
+
+	await refreshToken.save();
 
 	return result;
 }
