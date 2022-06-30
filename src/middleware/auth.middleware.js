@@ -20,16 +20,3 @@ exports.authenticateToken = () => (req, res, next) => {
 		next();
 	})
 };
-
-exports.refreshToken = () => (req, res, next) => {
-	const authHeader = req.headers['authorization'];
-
-	if (authHeader) {
-		return next();
-	}
-
-	/*TODO Check for Refresh Token 
-	if there is one, grant new Access Token and next()
-	
-	SHOULD WE HASH REFRESH TOKEN??? yes we should*/
-}

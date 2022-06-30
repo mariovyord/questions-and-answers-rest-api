@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { signup, login, getNewTokens } = require('../services/auth.service');
-
+const { signup, login, getNewTokens, logout } = require('../services/auth.service');
 
 // TODO Add Express Validator
 router.post('/signup', async (req, res) => {
@@ -9,6 +8,7 @@ router.post('/signup', async (req, res) => {
 		const result = await signup(userData);
 
 		res.json(result);
+
 	} catch (err) {
 		res.json({
 			message: 'Error'
@@ -22,9 +22,10 @@ router.post('/login', async (req, res) => {
 		const result = await login(userData.username, userData.password);
 
 		res.json(result);
+
 	} catch (err) {
 		res.json({
-			message: 'why'
+			message: err.message
 		})
 	}
 });
@@ -42,10 +43,12 @@ router.post('/token', async (req, res) => {
 })
 
 
-router.post('/logout', (req, res) => {
-	res.status(200).json({
-		message: 'Logout succesful'
-	})
+router.delete('/logout', async (req, res) => {
+	// TODO Check for token
+
+	await logout(req.body.refreshToken);
+
+	res.sendStatus(204);
 })
 
 module.exports = router;

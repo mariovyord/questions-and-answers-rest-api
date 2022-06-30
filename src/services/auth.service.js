@@ -1,6 +1,10 @@
 const User = require('../models/User');
+const { ObjectId } = require('mongoose').Types;
+const bcrypt = require('bcrypt');
 const RefreshToken = require('../models/RefreshToken');
 const jwt = require('jsonwebtoken');
+
+const saltRounds = 10;
 
 exports.signup = async (userData) => {
 	const existing = await User.findOne({ username: new RegExp(userData.username, 'i') });
@@ -31,19 +35,27 @@ exports.login = async (username, password) => {
 	return createSession(user);
 }
 
-exports.getNewTokens = async (refreshToken) => {
-	const token = await RefreshToken({ refreshToken: refreshToken });
-	if (token === null) return null;
+exports.logout = async (token) => {
+	const decoded = jwt.decode(token, { complete: true });
+	console.log(decoded)
+	const data = await RefreshToken.findOneAndDelete({ userId: decoded.payload._id });
+	console.log(data)
+}
 
+exports.getNewTokens = async (refreshToken) => {
 	return new Promise(function (resolve, reject) {
-		jwt.verify(token.refreshToken, process.env.JWT_REFRESH, (err, user) => {
+		jwt.verify(refreshToken, saltRounds, (err, user) => {
 			if (err) return reject(err);
 
-			resolve(createSession(user));
+			RefreshToken({ userId: user._id }).then(x => {
+				bcrypt.compare(refreshToken, x.refreshToken).then((err) => {
+					if (err) return reject(err);
+
+					resolve(createSession(user));
+				})
+			})
 		})
-
 	})
-
 }
 
 async function createSession(userData) {
@@ -66,10 +78,8 @@ async function createSession(userData) {
 		)
 	};
 
-	// TODO Delete old refresh token
-
 	const refreshToken = new RefreshToken({
-		refreshToken: result.refreshToken,
+		refreshToken: await bcrypt.hash(result.refreshToken, saltRounds),
 		userId: user._id
 	})
 
@@ -77,3 +87,9 @@ async function createSession(userData) {
 
 	return result;
 }
+
+/*
+1. Delete old refresh token
+2. Hash the rehresh token
+3. Delete refresh token on logout
+*/ 
