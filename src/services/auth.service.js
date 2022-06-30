@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const { ObjectId } = require('mongoose').Types;
 const bcrypt = require('bcrypt');
 const RefreshToken = require('../models/RefreshToken');
 const jwt = require('jsonwebtoken');
