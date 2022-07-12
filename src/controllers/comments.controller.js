@@ -1,17 +1,15 @@
 const router = require('express').Router();
-const answersService = require('../services/answers.service');
+const commentsService = require('../services/comments.service');
 
 // All
 router.get('/', async (req, res, next) => {
 	try {
-
-		const query = req.query;
-
-		const answers = await answersService.getAll(query);
+		const parentId = req.body.parentId;
+		const comments = await commentsService.getAllByParentId(parentId);
 
 		res.json({
-			message: 'List of answers',
-			result: answers,
+			message: 'List of comments',
+			result: comments,
 		})
 
 	} catch (err) {
@@ -22,11 +20,11 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
-		const answer = await answersService.create(req.body);
+		const comment = await commentsService.create(req.body);
 		res.status(201)
 			.json({
-				message: "Answer created",
-				result: answer,
+				message: "Comment created",
+				result: comment,
 			});
 	} catch (err) {
 		next(err);
@@ -38,11 +36,11 @@ router.get('/:_id', async (req, res, next) => {
 	try {
 		const _id = req.params._id;
 
-		const answer = await answersService.getOne(_id);
+		const comment = await commentsService.getOne(_id);
 
 		res.json({
-			message: 'Answer details',
-			result: answer,
+			message: 'Comment details',
+			result: comment,
 		})
 
 	} catch (err) {
@@ -54,10 +52,10 @@ router.put('/:_id', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const _id = req.params._id;
-		const answer = await answersService.update(_id, req.body);
+		const comment = await commentsService.update(_id, req.body);
 		res.json({
-			message: "Answer updated",
-			result: answer,
+			message: "Comment updated",
+			result: comment,
 		});
 	} catch (err) {
 		next(err);
@@ -69,10 +67,10 @@ router.delete('/:_id', async (req, res, next) => {
 		// TODO Add data validation and sanitazation
 		const _id = req.params._id;
 
-		await answersService.delete(_id);
+		await commentsService.delete(_id);
 
 		res.status(202).json({
-			message: "Answer deleted",
+			message: "Comment deleted",
 		});
 	} catch (err) {
 		next(err);

@@ -27,21 +27,25 @@ const answerSchema = new Schema({
 			required: true,
 		}
 	},
-	likes: {
-		type: Number,
-		default: 0,
+	upvotes: {
+		type: [ObjectId],
+		ref: 'User',
+		default: [],
 	},
-	dislikes: {
+	downvotes: {
+		type: [ObjectId],
+		ref: 'User',
+		default: [],
+	},
+	score: {
 		type: Number,
-		default: 0,
-	}
+		default: function () {
+			return this.upvotes.length - this.downvotes.length;
+		}
+	},
 },
 	{ timestamps: true }
 )
-
-answerSchema.virtual('score').get(function () {
-	return (this.likes - this.dislikes);
-})
 
 const Answer = model('Answer', answerSchema);
 

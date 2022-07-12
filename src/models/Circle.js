@@ -21,6 +21,11 @@ const circleSchema = new Schema({
 		required: true,
 		minlength: [6, 'Minimum length is 6 characters']
 	},
+	type: {
+		type: String,
+		enum: ['user', 'core'],
+		default: 'user',
+	}
 },
 	{ timestamps: true }
 )

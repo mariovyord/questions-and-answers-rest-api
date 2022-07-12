@@ -3,50 +3,25 @@ Questions and Answers is a React Single Page App, where you can ask a question a
 
 The REST Api powers the app by providing an auth and a data service. Data is stored in MongoDB Atlas. The api itself is deployed on Heroku.
 
-## App Feautures
-### Auth
-- Register / Login / Logout
-- Register is two step - first username, first and last name and then optional profile picture upload
-
-### Common
-- Home page / Sorted by likes / Pagination
-- Details
-- Login / Logout
-- Register
-
-### User 
-- Home page / Sorted by likes / Pagination / Add question field
-- Details with additional options
-- Edit 
-- User Profile / All questions / All answers / Sorted by newest
-- Circles / Sorted by likes
-
-### Users can:
-- Post questions
-- Answer questions
-- Upvote and Downvote answers
-- Create circles
-- Optional: Create personal feed by subscribing to different circles
-- Optional: Save best answers in personal collection
-
-## REST Api Feautures
-### Auth
+## Auth
 - Route: '/auth'
 	- POST: '/signup', 
 	- POST: '/login', 
 	- POST: '/logout'
 
-### Root
+## Root
 - Route: '/api/'
 - Returns REST Api meta data
 
-### Data service
-- Basic structure: '/data/:collection'
-- '/data' returns list of collections
+# Data service
+- Basic structure: '/collections/:collection'
+- '/collections' returns list of collections
 
-### Answers
-- Route: '/answers' + quary
-- GET: Get all answers / Sorted by likes or by date / Paginated
+# Answers
+
+## GET: Get all answers 
+GET request to '/answers'
+
 - POST: Create new answer 
 
 - Route: '/answers/:id'
