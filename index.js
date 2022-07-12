@@ -17,7 +17,7 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 
 	app.use(router);
 
-	app.listen(port, () => console.log('App is listening on port ' + port));
+	app.listen(port, () => console.log('Server is listening on port ' + port));
 })();
 
 /* 
