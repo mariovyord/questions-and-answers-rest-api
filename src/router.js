@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const authController = require('./controllers/auth.controller');
+const collectionsController = require('./controllers/collections.controller');
 // const { authenticateToken } = require('./middleware/auth.middleware');
 
 router.use((req, res, next) => {
@@ -20,7 +21,9 @@ router.get('/api', (req, res) => {
 	})
 });
 
-router.use('/auth', authController);
+router.use('/api/collections', collectionsController);
+
+router.use('/api/auth', authController);
 
 router.all('*', (req, res) => {
 	res.status(404).json({

@@ -1,4 +1,4 @@
-const { Schema, Type: { ObjectId }, model } = require('mongoose');
+const { Schema, Types: { ObjectId }, model } = require('mongoose');
 
 // TODO Add more verification
 const circleSchema = new Schema({
