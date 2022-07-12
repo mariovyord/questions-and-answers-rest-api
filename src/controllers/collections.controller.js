@@ -1,14 +1,11 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const Answer = require('../models/Answer');
-const Circle = require('../models/Circle');
-const Comment = require('../models/Comment');
-const Question = require('../models/Question');
+
+const circlesController = require('./circles.controller');
 
 
 // Return list of collections
 router.get('/', (req, res) => {
-
 	mongoose.connection.db.listCollections().toArray(function (err, names) {
 		if (err) {
 			res.status(500).json({
@@ -16,13 +13,16 @@ router.get('/', (req, res) => {
 			});
 		}
 		else {
-			console.log(names);
 			res.json({
 				message: 'List of collections',
-				collections: names?.filter(x => x.name !== 'refreshtokens').map(x => x.name),
+				result: names?.filter(x => x.name !== 'refreshtokens').map(x => x.name),
 			});
 		}
 	});
 });
 
+// Circles
+router.use('/circles', circlesController);
+
 module.exports = router;
+
