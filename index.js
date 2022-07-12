@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express');
+const { handleError } = require('./src/middleware/handleErrors.middleware');
 const router = require('./src/router');
 
 const port = process.env.CONNECTION_STRING || 3030;
@@ -16,6 +17,7 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 	app.use(express.urlencoded({ extended: true }));
 
 	app.use(router);
+	app.use(handleError());
 
 	app.listen(port, () => console.log('Server is listening on port ' + port));
 })();

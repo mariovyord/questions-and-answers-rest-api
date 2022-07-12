@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const questionsService = require('../services/questions.service');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try {
 		const questions = await questionsService.getAll();
 
@@ -11,12 +11,11 @@ router.get('/', async (req, res) => {
 		})
 
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const question = await questionsService.create(req.body);
@@ -27,11 +26,11 @@ router.post('/', async (req, res) => {
 			});
 	} catch (err) {
 		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 })
 
-router.put('/', async (req, res) => {
+router.put('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const question = await questionsService.update(req.body);
@@ -40,12 +39,11 @@ router.put('/', async (req, res) => {
 			result: question,
 		});
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const _id = req.body._id;
@@ -56,8 +54,7 @@ router.delete('/', async (req, res) => {
 			message: "Question deleted",
 		});
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 });
 

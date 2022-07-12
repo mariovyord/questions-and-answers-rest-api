@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const circlesService = require('../services/circles.service');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
 	try {
 		const circles = await circlesService.getAll();
 
@@ -11,12 +11,11 @@ router.get('/', async (req, res) => {
 		})
 
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const circle = await circlesService.create(req.body);
@@ -26,12 +25,11 @@ router.post('/', async (req, res) => {
 				result: circle,
 			});
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 })
 
-router.put('/', async (req, res) => {
+router.put('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const circle = await circlesService.update(req.body);
@@ -40,12 +38,11 @@ router.put('/', async (req, res) => {
 			result: circle,
 		});
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const _id = req.body._id;
@@ -56,8 +53,7 @@ router.delete('/', async (req, res) => {
 			message: "Circle deleted",
 		});
 	} catch (err) {
-		// TODO Return errors array
-		console.log(err);
+		next(err);
 	}
 });
 
