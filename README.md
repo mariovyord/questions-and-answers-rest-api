@@ -20,11 +20,11 @@ Basic structure: '/api/collections/:collection/:_id'
 
 ### **GET**
 
-- `GET /api/collections/:collection` - Returns object with message and a result array; Returns status 404 if there are no results.
-- `GET /api/collections/:collection/:id` - Returns object with message and a result with matching ID; Returns status 404 if there are is no result.
+- `GET /api/collections/:collection` - Returns object with a message and a result array; Returns status 404 if there are no results.
+- `GET /api/collections/:collection/:id` - Returns object with a message and a result with matching ID; Returns status 404 if there are is no result.
 
 ### **POST** 
-- `POST /api/collections/:collection` - Created new item in the chosen collection. Returns the created item.
+- `POST /api/collections/:collection` - Create new item in the chosen collection. Returns the created item.
 
 ### **PUT**
 - `PUT /api/collections/:collection/:_id` - Update item with matching ID. Returns the updated item.
@@ -34,7 +34,7 @@ Basic structure: '/api/collections/:collection/:_id'
 
 ## Query parameters
 
-### `SORTING` 
+### `SORT` 
 Append URL encoded string `sortBy={property asc/desc}` to the query parameters to sort by property name in ascending (`asc`) or descending (`desc`) order.
 
 Example:
@@ -42,7 +42,7 @@ Example:
 (unencoded) /collections/answers?sortBy=createdAt desc
 GET /collections/answers?sortBy=createdAt%20desc
 ```
-### `SEARCHING` 
+### `SEARCH` 
 Append URL encoded string `where={property=value}` to the query parameters. Only full matches will be returned. 
 
 Example:
