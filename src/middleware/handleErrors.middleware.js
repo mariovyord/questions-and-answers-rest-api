@@ -1,3 +1,5 @@
+// TODO Handle and transform all errors
+
 exports.handleError = () => (err, req, res, next) => {
 	console.log(`error ${err.message}`)
 

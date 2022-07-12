@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { signup, login, getNewTokens, logout } = require('../services/auth.service');
 
 // TODO Add Express Validator
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
 	try {
 		const userData = req.body;
 		const result = await signup(userData);
@@ -10,13 +10,11 @@ router.post('/signup', async (req, res) => {
 		res.json(result);
 
 	} catch (err) {
-		res.json({
-			message: 'Error'
-		})
+		next(err);
 	}
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
 	try {
 		const userData = req.body;
 		const result = await login(userData.username, userData.password);
@@ -24,31 +22,38 @@ router.post('/login', async (req, res) => {
 		res.json(result);
 
 	} catch (err) {
-		res.json({
-			message: err.message
-		})
+		next(err);
 	}
 });
 
-router.post('/token', async (req, res) => {
-	const refreshToken = req.body.refreshToken;
+router.post('/token', async (req, res, next) => {
+	try {
 
-	if (refreshToken == null) return res.sendStatus(401);
 
-	const newTokens = await getNewTokens(refreshToken);
+		const refreshToken = req.body.refreshToken;
 
-	if (newTokens === null) return res.sendStatus(403)
+		if (refreshToken == null) return res.sendStatus(401);
 
-	return newTokens;
+		const newTokens = await getNewTokens(refreshToken);
+
+		if (newTokens === null) return res.sendStatus(403)
+
+		return newTokens;
+	} catch (err) {
+		next(err);
+	}
 })
 
 
-router.delete('/logout', async (req, res) => {
+router.delete('/logout', async (req, res, next) => {
 	// TODO Check for token
+	try {
+		await logout(req.body.refreshToken);
 
-	await logout(req.body.refreshToken);
-
-	res.sendStatus(204);
+		res.sendStatus(204);
+	} catch (err) {
+		next(err);
+	}
 })
 
 module.exports = router;

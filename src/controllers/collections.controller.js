@@ -4,6 +4,7 @@ const { handleError } = require('../middleware/handleErrors.middleware');
 
 const circlesController = require('./circles.controller');
 const questionsController = require('./questions.controller');
+const answersController = require('./answers.controller');
 
 
 // Return list of collections
@@ -24,6 +25,7 @@ router.get('/', (req, res, next) => {
 // Circles
 router.use('/circles', circlesController, handleError());
 router.use('/questions', questionsController, handleError());
+router.use('/answers', answersController, handleError());
 
 module.exports = router;
 
