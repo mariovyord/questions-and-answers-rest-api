@@ -2,6 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 
 const circlesController = require('./circles.controller');
+const questionsController = require('./questions.controller');
 
 
 // Return list of collections
@@ -23,6 +24,7 @@ router.get('/', (req, res) => {
 
 // Circles
 router.use('/circles', circlesController);
+router.use('/questions', questionsController);
 
 module.exports = router;
 
