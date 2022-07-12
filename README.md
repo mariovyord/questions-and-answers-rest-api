@@ -19,14 +19,14 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 - Details with additional options
 - Edit 
 - User Profile / All questions / All answers / Sorted by newest
-- Spaces / Sorted by likes
+- Circles / Sorted by likes
 
 ### Users can:
 - Post questions
 - Answer questions
 - Upvote and Downvote answers
-- Create spaces
-- Optional: Create personal feed by subscribing to different spaces
+- Create circles
+- Optional: Create personal feed by subscribing to different circles
 - Optional: Save best answers in personal collection
 
 ## REST Api Feautures
@@ -42,10 +42,11 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 
 ### Data service
 - Basic structure: '/data/:collection'
+- '/data' returns list of collections
 
 ### Answers
 - Route: '/answers' + quary
-- GET: Get all answers / Sorted by likes / Paginated
+- GET: Get all answers / Sorted by likes or by date / Paginated
 - POST: Create new answer 
 
 - Route: '/answers/:id'
@@ -68,7 +69,7 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 - username
 - firstName
 - lastName
-- bio
+- description
 - imageUrl
 - role ['user', 'moderator', 'admin']
 - score
@@ -76,21 +77,34 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 
 ### Question model
 - body
-- owner
-- space
-- hasAnswers
+- owner, ref: 'User'
+- circle, ref: 'Circle'
+- meta: {
+	circle,
+}
+- hidden (from profile)
 
 ### Answer model
 - body
-- images
-- owner
-- question, ref: 'Question'
+- owner, ref: 'User'
+- parent, ref: 'Question'
+- meta: {
+	question,
+	circle,
+}
 - likes
+- dislikes
+- total score virtual
 
 ### Comment model
 - body (only text)
-- owner
-- answer, ref: 'Answer'
+- owner, ref: 'User
+- parent, ref: 'Answer'
 
+### Circle model
+- title
+- imageUrl
+- description
+- owner, ref: 'User'
 
 
