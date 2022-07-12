@@ -10,8 +10,8 @@ exports.create = async (data) => {
 	return circle;
 }
 
-exports.update = async (data) => {
-	const circle = await Circle.findById(data._id);
+exports.update = async (_id, data) => {
+	const circle = await Circle.findById(_id);
 
 	circle.title = data.title;
 	circle.imageUrl = data.imageUrl;

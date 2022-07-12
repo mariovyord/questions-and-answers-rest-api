@@ -29,10 +29,11 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
-router.put('/', async (req, res, next) => {
+router.put('/:_id', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
-		const circle = await circlesService.update(req.body);
+		const _id = req.params._id;
+		const circle = await circlesService.update(_id, req.body);
 		res.json({
 			message: "Circle updated",
 			result: circle,
@@ -42,7 +43,7 @@ router.put('/', async (req, res, next) => {
 	}
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:_id', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const _id = req.body._id;

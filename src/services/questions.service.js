@@ -10,8 +10,8 @@ exports.create = async (data) => {
 	return question;
 }
 
-exports.update = async (data) => {
-	const question = await Question.findById(data._id);
+exports.update = async (_id, data) => {
+	const question = await Question.findById(_id);
 
 	question.body = data.body;
 	question.parent = data.parent;

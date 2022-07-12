@@ -30,10 +30,11 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
-router.put('/', async (req, res, next) => {
+router.put('/:_id', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
-		const question = await questionsService.update(req.body);
+		const _id = req.params._id;
+		const question = await questionsService.update(_id, req.body);
 		res.json({
 			message: "Question updated",
 			result: question,
@@ -43,7 +44,7 @@ router.put('/', async (req, res, next) => {
 	}
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:_id', async (req, res, next) => {
 	try {
 		// TODO Add data validation and sanitazation
 		const _id = req.body._id;
