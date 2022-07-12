@@ -11,7 +11,9 @@ const RefreshTokenSchema = new mongoose.Schema({
 		ref: 'User',
 		required: true,
 	}
-})
+},
+	{ timestamps: true }
+)
 
 const RefreshToken = mongoose.model('RefreshToken', RefreshTokenSchema);
 

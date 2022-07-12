@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // TODO Add more verification
+// TODO Add default image
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
@@ -28,12 +29,13 @@ const userSchema = new mongoose.Schema({
 		minlength: 6,
 		maxlength: 60,
 	},
-	bio: {
+	description: {
 		type: String,
 		maxlength: 60,
 	},
 	imageUrl: {
 		type: String,
+		default: '/static/images/anonymous-avatar-icon.png'
 	},
 	role: {
 		type: String,
@@ -44,7 +46,9 @@ const userSchema = new mongoose.Schema({
 		type: Number,
 		default: 0,
 	}
-})
+},
+	{ timestamps: true }
+)
 
 userSchema.methods.comparePassword = async function (password) {
 	return bcrypt.compare(password, this.password);
