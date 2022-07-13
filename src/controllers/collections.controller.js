@@ -1,7 +1,19 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
+const { body, validationResult } = require('express-validator');
 
 const collectionsService = require('../services/collections.service');
+
+// Middleware
+router.use('/answers',
+	body('body').not().isEmpty().trim().escape(),
+	body('owner').not().isEmpty().trim().escape().toLowerCase(),
+	body('parent').not().isEmpty().trim().escape(),
+	body('meta.question').not().isEmpty().trim().escape(),
+	body('meta.circle').not().isEmpty().trim().escape(),
+)
+
+// TODO Add more middleware validations
 
 // Return list of collections
 router.get('/', (req, res, next) => {
