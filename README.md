@@ -69,6 +69,14 @@ Example:
 GET /collections/answers/62cd7b659032c071e10e4f8e?populate=owner
 ```
 
+### `COUNT`
+
+Append `count=true` to the query parameters. It can be combined with `SEARCH` query.
+Example:
+```
+GET /collections/answers?count=true
+```
+
 ## Data models
 
 ### User Model

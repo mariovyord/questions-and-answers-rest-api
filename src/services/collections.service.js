@@ -35,10 +35,11 @@ exports.getAll = async (collection, query) => {
 		skip: 0,
 	}
 	if (query.offset && query.pageSize) {
-		pagination.skip = query.offset;
-		pagination.limit = query.pageSize;
+		pagination.skip = parseInt(query.offset);
+		pagination.limit = parseInt(query.pageSize);
 	}
 
+	// Populate properties
 	let populate = '';
 	let limitPopulate = ''
 	if (query.populate) {
@@ -49,12 +50,21 @@ exports.getAll = async (collection, query) => {
 		}
 	}
 
-	return collections[collection]
+	// Result
+	const result = collections[collection]
 		.find(options)
 		.sort(sort)
 		.limit(pagination.limit)
 		.skip(pagination.skip)
 		.populate(populate, limitPopulate);
+
+	// Return count if specified
+	if (query.count === 'true') {
+		console.log(query.count)
+		return result.countDocuments();
+	}
+
+	return result;
 }
 
 exports.getOne = async (collection, _id) => {
