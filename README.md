@@ -61,6 +61,14 @@ Example: Second page of entries from the answers collection, assuming 10 entries
 GET /collections/answers?offset=10&pageSize=10
 ```
 
+### `POPULATE`
+
+Append `populate={property}` to the query parameters, where `{property}` is the property you want to populate with data.
+Example:
+```
+GET /collections/answers/62cd7b659032c071e10e4f8e/populate=owner
+```
+
 ## Data models
 
 ### User Model

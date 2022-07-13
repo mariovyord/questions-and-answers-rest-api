@@ -39,11 +39,22 @@ exports.getAll = async (collection, query) => {
 		pagination.limit = query.pageSize;
 	}
 
+	let populate = '';
+	let limitPopulate = ''
+	if (query.populate) {
+		populate += query.populate;
+
+		if (query.populate === 'owner') {
+			limitPopulate += 'firstName lastName imageUrl'
+		}
+	}
+
 	return collections[collection]
 		.find(options)
 		.sort(sort)
 		.limit(pagination.limit)
-		.skip(pagination.skip);
+		.skip(pagination.skip)
+		.populate(populate, limitPopulate);
 }
 
 exports.getOne = async (collection, _id) => {
