@@ -50,6 +50,16 @@ Example:
 (unencoded) /collections/answers?where=owner=8f414b4fab394d36bedb2ad69da9c830
 GET /collections/answers?where=owner%3D%228f414b4fab394d36bedb2ad69da9c830%22
 ```
+### `PAGINATION`
+
+*By default the service returns 20 entries.*
+
+Append `offset={skip}&pageSize={take}` to the query parameters, where `{skip}` is the number of entries to skip and `{take}` is the number of entries to return.
+
+Example: Second page of entries from the answers collection, assuming 10 entries per page:
+```
+GET /collections/answers?offset=10&pageSize=10
+```
 
 ## Data models
 

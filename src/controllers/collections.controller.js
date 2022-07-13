@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 const collectionsService = require('../services/collections.service');
 
-
 // Return list of collections
 router.get('/', (req, res, next) => {
 	mongoose.connection.db.listCollections().toArray(function (err, names) {

@@ -12,14 +12,15 @@ const collections = {
 
 
 exports.getAll = async (collection, query) => {
-
 	const options = {};
 
+	// Search
 	if (query.where) {
 		const [prop, value] = query.where.split('=');
 		options[prop] = value;
 	}
 
+	// Sort
 	let sort = {};
 	if (query.sortBy) {
 		const [sortProp, order] = query.sortBy.split(' ');
@@ -28,7 +29,21 @@ exports.getAll = async (collection, query) => {
 		sort.createdAt = 'asc';
 	}
 
-	return collections[collection].find(options).sort(sort);
+	// Pagination
+	const pagination = {
+		limit: 20,
+		skip: 0,
+	}
+	if (query.offset && query.pageSize) {
+		pagination.skip = query.offset;
+		pagination.limit = query.pageSize;
+	}
+
+	return collections[collection]
+		.find(options)
+		.sort(sort)
+		.limit(pagination.limit)
+		.skip(pagination.skip);
 }
 
 exports.getOne = async (collection, _id) => {
