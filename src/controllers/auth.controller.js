@@ -2,6 +2,18 @@ const router = require('express').Router();
 const { signup, login, getNewTokens, logout } = require('../services/auth.service');
 
 // TODO Add Express Validator
+router.all('/', (req, res) => {
+	res.json({
+		message: 'Welcome to auth service!',
+		endpoints: {
+			login: '/login; POST',
+			signup: '/signup; POST',
+			logout: '/logout; DELETE',
+			getNewTokens: '/token; POST',
+		}
+	})
+})
+
 router.post('/signup', async (req, res, next) => {
 	try {
 		const userData = req.body;
@@ -28,8 +40,6 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/token', async (req, res, next) => {
 	try {
-
-
 		const refreshToken = req.body.refreshToken;
 
 		if (refreshToken == null) return res.sendStatus(401);
@@ -38,7 +48,7 @@ router.post('/token', async (req, res, next) => {
 
 		if (newTokens === null) return res.sendStatus(403)
 
-		return newTokens;
+		res.json(newTokens);
 	} catch (err) {
 		next(err);
 	}

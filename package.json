@@ -4,7 +4,8 @@
 	"description": "Questions and Answers is a React Single Page App, where you can ask a question and have other users answer. Inspired by Quora.",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon index.js"
+		"dev": "nodemon index.js",
+		"start": "node index.js"
 	},
 	"repository": {
 		"type": "git",

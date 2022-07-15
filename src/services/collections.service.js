@@ -10,7 +10,6 @@ const collections = {
 	questions: Question,
 }
 
-
 exports.getAll = async (collection, query) => {
 	const options = {};
 

@@ -43,18 +43,30 @@ exports.logout = async (token) => {
 
 exports.getNewTokens = async (refreshToken) => {
 	return new Promise(function (resolve, reject) {
-		jwt.verify(refreshToken, saltRounds, (err, user) => {
+		jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, userData) => {
 			if (err) return reject(err);
 
-			RefreshToken({ userId: user._id }).then(x => {
-				bcrypt.compare(refreshToken, x.refreshToken).then((err) => {
-					if (err) return reject(err);
-
-					resolve(createSession(user));
+			RefreshToken.findOne({ userId: userData._id })
+				.then(x => {
+					bcrypt.compare(refreshToken, x.refreshToken, function (err, result) {
+						if (err) {
+							deleteSessions(userData._id);
+							return reject(err)
+						}
+						if (result) {
+							deleteSessions(userData._id);
+							resolve(createSession(userData));
+						}
+					})
 				})
-			})
+				.catch(err => reject(err));
 		})
 	})
+}
+
+async function deleteSessions(userId) {
+	RefreshToken.deleteMany({ userId: userId })
+		.then(() => console.log('Old sessions deleted'));
 }
 
 async function createSession(userData) {
@@ -72,7 +84,7 @@ async function createSession(userData) {
 		),
 		refreshToken: jwt.sign(
 			user,
-			process.env.JWT_REFRESH,
+			process.env.JWT_REFRESH_SECRET,
 			{ expiresIn: '30d' }
 		)
 	};
