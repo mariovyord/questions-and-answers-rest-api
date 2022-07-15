@@ -1,11 +1,11 @@
 const { Schema, Types: { ObjectId }, model } = require('mongoose');
 
-// TODO Add more verification
 const answerSchema = new Schema({
 	body: {
 		type: String,
-		required: true,
-		minlength: [2, 'Minimum length is 2 characters']
+		required: [true, `Answer can't be empty`],
+		minlength: [2, 'Minimum length is 2 characters'],
+		maxlength: [1000, 'Maximum length is 1000 characters']
 	},
 	owner: {
 		type: ObjectId,
@@ -16,16 +16,6 @@ const answerSchema = new Schema({
 		type: ObjectId,
 		ref: 'Question',
 		required: [true, 'Parent question ID is required']
-	},
-	meta: {
-		question: {
-			type: String,
-			required: true,
-		},
-		circle: {
-			type: String,
-			required: true,
-		}
 	},
 	upvotes: {
 		type: [ObjectId],

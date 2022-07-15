@@ -4,7 +4,7 @@ const { Schema, Types: { ObjectId }, model } = require('mongoose');
 const circleSchema = new Schema({
 	title: {
 		type: String,
-		required: true,
+		required: [true, 'Title is required'],
 		minlength: [3, 'Minimum length is 3 characters']
 	},
 	owner: {
@@ -18,7 +18,7 @@ const circleSchema = new Schema({
 	},
 	description: {
 		type: String,
-		required: true,
+		required: [true, 'Description is required'],
 		minlength: [6, 'Minimum length is 6 characters']
 	},
 	type: {

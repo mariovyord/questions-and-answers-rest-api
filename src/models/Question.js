@@ -4,7 +4,7 @@ const { Schema, Types: { ObjectId }, model } = require('mongoose');
 const questionSchema = new Schema({
 	body: {
 		type: String,
-		required: true,
+		required: [true, "Question can't be empty"],
 		minlength: [6, 'Minimum length is 6 characters']
 	},
 	owner: {
@@ -16,12 +16,6 @@ const questionSchema = new Schema({
 		type: ObjectId,
 		ref: 'Circle',
 		required: [true, 'Circle ID is required']
-	},
-	meta: {
-		circle: {
-			type: String,
-			required: true,
-		}
 	},
 	isHidden: {
 		type: Boolean,

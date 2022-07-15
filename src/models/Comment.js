@@ -4,7 +4,7 @@ const { Schema, Types: { ObjectId }, model } = require('mongoose');
 const commentSchema = new Schema({
 	body: {
 		type: String,
-		required: true,
+		required: [true, "Comment can't be empty"],
 		minlength: [2, 'Minimum length is 2 characters']
 	},
 	owner: {
