@@ -1,6 +1,5 @@
 const { Schema, Types: { ObjectId }, model } = require('mongoose');
 
-// TODO Add more verification
 const questionSchema = new Schema({
 	body: {
 		type: String,

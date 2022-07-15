@@ -1,19 +1,8 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
 const collectionsService = require('../services/collections.service');
-
-// Middleware
-router.use('/answers',
-	body('body').trim().not().isEmpty().escape(),
-	body('owner').trim().not().isEmpty().escape().toLowerCase(),
-	body('parent').trim().not().isEmpty().escape(),
-	body('meta.question').trim().not().isEmpty().escape(),
-	body('meta.circle').trim().not().isEmpty().escape(),
-)
-
-// TODO Add more middleware validations
 
 // Return list of collections
 router.get('/', (req, res, next) => {
@@ -30,21 +19,25 @@ router.get('/', (req, res, next) => {
 	});
 });
 
-router.get('/:collection', async (req, res, next) => {
-	try {
-		const collection = req.params.collection;
-		const query = req.query;
-		const result = await collectionsService.getAll(collection, query);
+router.get('/:collection',
+	body('body').trim().escape(),
+	body('title').trim().escape(),
+	body('description').trim().escape(),
+	async (req, res, next) => {
+		try {
+			const collection = req.params.collection;
+			const query = req.query;
+			const result = await collectionsService.getAll(collection, query);
 
-		res.json({
-			message: `List of ${collection}`,
-			result: result,
-		})
+			res.json({
+				message: `List of ${collection}`,
+				result: result,
+			})
 
-	} catch (err) {
-		next(err);
-	}
-})
+		} catch (err) {
+			next(err);
+		}
+	})
 
 router.post('/:collection', async (req, res, next) => {
 	try {

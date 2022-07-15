@@ -1,6 +1,5 @@
 const { mongoose, Types: { ObjectId } } = require('mongoose');
 
-// TODO Add more verification
 const SessionSchema = new mongoose.Schema({
 	refreshToken: {
 		type: String,
