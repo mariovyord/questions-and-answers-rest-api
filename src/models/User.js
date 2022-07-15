@@ -38,7 +38,6 @@ const userSchema = new mongoose.Schema({
 		required: [true, 'Password name is required'],
 		minlength: 6,
 		maxlength: 60,
-		select: false,
 		validate: {
 			validator: noBlacklisterChars,
 			message: 'Password should not contain whitespace or special symbols'

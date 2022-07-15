@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const { body } = require('express-validator');
-
+const { authenticateToken } = require('../middleware/auth.middleware');
 const collectionsService = require('../services/collections.service');
 
 // Return list of collections
@@ -39,7 +39,7 @@ router.get('/:collection',
 		}
 	})
 
-router.post('/:collection', async (req, res, next) => {
+router.post('/:collection', authenticateToken(), async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
 		const data = req.body;
@@ -70,11 +70,13 @@ router.get('/:collection/:_id', async (req, res, next) => {
 	}
 })
 
-router.put('/:collection/:_id', async (req, res, next) => {
+router.put('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
 		const _id = req.params._id;
-		const result = await collectionsService.update(collection, _id, req.body);
+		const userId = res.locals.user._id;
+
+		const result = await collectionsService.update(collection, _id, req.body, userId);
 		res.json({
 			message: `Updated item in ${collection}`,
 			result: result,
@@ -84,11 +86,13 @@ router.put('/:collection/:_id', async (req, res, next) => {
 	}
 });
 
-router.delete('/:collection/:_id', async (req, res, next) => {
+router.delete('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
 		const _id = req.params._id;
-		await collectionsService.delete(_id);
+		const userId = res.locals.user._id;
+
+		await collectionsService.delete(collection, _id, userId);
 
 		res.status(202).json({
 			message: `Deleted item in ${collection}`,

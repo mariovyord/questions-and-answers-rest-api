@@ -3,7 +3,6 @@ const { body, validationResult } = require('express-validator');
 const { signup, login, getNewTokens, logout } = require('../services/auth.service');
 const { mapErrors } = require('../utils/mapErrors');
 
-
 router.all('/', (req, res) => {
 	res.json({
 		message: 'Welcome to auth service!',

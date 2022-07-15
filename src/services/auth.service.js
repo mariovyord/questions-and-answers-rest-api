@@ -25,7 +25,7 @@ exports.login = async (username, password) => {
 		throw new Error('Incorrect username or password');
 	}
 
-	const match = user.comparePassword(password);
+	const match = await user.comparePassword(password);
 
 	if (!match) {
 		throw new Error('Incorrect username or password');
@@ -82,7 +82,8 @@ async function createSession(userData) {
 		accessToken: jwt.sign(
 			user,
 			process.env.JWT_SECRET,
-			{ expiresIn: '5m' }
+			// TODO Make expiration time 5m
+			{ expiresIn: '1d' }
 		),
 		refreshToken: jwt.sign(
 			user,

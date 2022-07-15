@@ -76,15 +76,16 @@ exports.create = async (collection, data) => {
 	return result;
 }
 
-exports.update = async (collection, _id, data) => {
+exports.update = async (collection, _id, data, userId) => {
 	const result = await collections[collection].findById(_id);
+
+	if (result.owner != userId) throw new Error('Only owners can update items!')
 
 	if (collection === 'answers') {
 		result.body = data.body;
 	} else if (collection === 'questions') {
 		result.body = data.body;
 		result.parent = data.parent;
-		result.meta.circle = data.meta.circle;
 	} else if (collection === 'circles') {
 		result.title = data.title;
 		result.imageUrl = data.imageUrl;
@@ -98,7 +99,11 @@ exports.update = async (collection, _id, data) => {
 	return result;
 }
 
-exports.delete = async (collection, _id) => {
-	return collections[collection].findByIdAndDelete(_id);
+exports.delete = async (collection, _id, userId) => {
+	const item = await collections[collection].findById(_id);
+
+	if (item.owner != userId) throw new Error('Only owners can delete items!')
+
+	item.remove()
 }
 
