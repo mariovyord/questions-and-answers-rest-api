@@ -26,6 +26,5 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 
 /* 
 TODO
-1. Add CORS middleware
-2. Add Helmet Js
+1. Add Helmet Js
 */

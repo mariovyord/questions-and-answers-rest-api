@@ -1,5 +1,3 @@
-// TODO Handle and transform all errors
-
 const { mapErrors } = require("../utils/mapErrors")
 
 exports.handleError = () => (err, req, res, next) => {

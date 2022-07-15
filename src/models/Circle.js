@@ -1,6 +1,5 @@
 const { Schema, Types: { ObjectId }, model } = require('mongoose');
 
-// TODO Add more verification
 const circleSchema = new Schema({
 	title: {
 		type: String,

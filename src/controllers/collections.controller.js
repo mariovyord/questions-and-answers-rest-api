@@ -41,7 +41,6 @@ router.get('/:collection',
 
 router.post('/:collection', async (req, res, next) => {
 	try {
-		// TODO Add data validation and sanitazation
 		const collection = req.params.collection;
 		const data = req.body;
 		const result = await collectionsService.create(collection, data);
@@ -73,7 +72,6 @@ router.get('/:collection/:_id', async (req, res, next) => {
 
 router.put('/:collection/:_id', async (req, res, next) => {
 	try {
-		// TODO Add data validation and sanitazation
 		const collection = req.params.collection;
 		const _id = req.params._id;
 		const result = await collectionsService.update(collection, _id, req.body);
@@ -88,7 +86,6 @@ router.put('/:collection/:_id', async (req, res, next) => {
 
 router.delete('/:collection/:_id', async (req, res, next) => {
 	try {
-		// TODO Add data validation and sanitazation
 		const collection = req.params.collection;
 		const _id = req.params._id;
 		await collectionsService.delete(_id);
