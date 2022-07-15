@@ -6,11 +6,11 @@ const collectionsService = require('../services/collections.service');
 
 // Middleware
 router.use('/answers',
-	body('body').not().isEmpty().trim().escape(),
-	body('owner').not().isEmpty().trim().escape().toLowerCase(),
-	body('parent').not().isEmpty().trim().escape(),
-	body('meta.question').not().isEmpty().trim().escape(),
-	body('meta.circle').not().isEmpty().trim().escape(),
+	body('body').trim().not().isEmpty().escape(),
+	body('owner').trim().not().isEmpty().escape().toLowerCase(),
+	body('parent').trim().not().isEmpty().escape(),
+	body('meta.question').trim().not().isEmpty().escape(),
+	body('meta.circle').trim().not().isEmpty().escape(),
 )
 
 // TODO Add more middleware validations

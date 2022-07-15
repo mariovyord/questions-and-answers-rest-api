@@ -1,7 +1,7 @@
 const { mongoose, Types: { ObjectId } } = require('mongoose');
 
 // TODO Add more verification
-const RefreshTokenSchema = new mongoose.Schema({
+const SessionSchema = new mongoose.Schema({
 	refreshToken: {
 		type: String,
 		required: true,
@@ -15,6 +15,6 @@ const RefreshTokenSchema = new mongoose.Schema({
 	{ timestamps: true }
 )
 
-const RefreshToken = mongoose.model('RefreshToken', RefreshTokenSchema);
+const Session = mongoose.model('Session', SessionSchema);
 
-module.exports = RefreshToken;
+module.exports = Session;

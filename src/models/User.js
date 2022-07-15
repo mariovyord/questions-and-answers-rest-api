@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 // TODO Add more verification
-// TODO Add default image
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
@@ -35,17 +34,14 @@ const userSchema = new mongoose.Schema({
 	},
 	imageUrl: {
 		type: String,
-		default: '/static/images/anonymous-avatar-icon.png'
+		// TODO Change default image
+		default: 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'
 	},
 	role: {
 		type: String,
 		enum: ['user', 'moderator', 'admin'],
 		default: 'user'
 	},
-	score: {
-		type: Number,
-		default: 0,
-	}
 },
 	{ timestamps: true }
 )
