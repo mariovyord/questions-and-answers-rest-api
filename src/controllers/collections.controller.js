@@ -44,6 +44,7 @@ router.post('/:collection', authenticateToken(), async (req, res, next) => {
 		const collection = req.params.collection;
 		const data = req.body;
 		const result = await collectionsService.create(collection, data);
+
 		res.status(201)
 			.json({
 				message: `Created item in ${collection}`,

@@ -36,9 +36,21 @@ exports.login = async (username, password) => {
 
 exports.logout = async (token) => {
 	const decoded = jwt.decode(token, { complete: true });
-	console.log(decoded)
-	const data = await Session.findOneAndDelete({ userId: decoded.payload._id });
-	console.log(data)
+	await Session.findOneAndDelete({ userId: decoded.payload._id });
+}
+
+exports.getUserData = async (userId) => {
+	return User.findById(userId).select('-password -__v');
+}
+
+// Only for imageUrl
+exports.patchUserData = async (userId, data) => {
+	const user = await User.findById(userId).select('-password -__v');
+	if (data.imageUrl) {
+		user.imageUrl = data.imageUrl;
+		await user.save();
+		return user;
+	}
 }
 
 exports.getNewTokens = async (refreshToken) => {
