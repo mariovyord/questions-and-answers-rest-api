@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const { body, validationResult } = require('express-validator');
 const { signup, login, getNewTokens, logout } = require('../services/auth.service');
+const { mapErrors } = require('../utils/mapErrors');
 
-const blacklist = ['-', ' ', '.', ',', ';', '/', '<', '>', '?', '{', '}'];
 
 router.all('/', (req, res) => {
 	res.json({
@@ -17,7 +17,7 @@ router.all('/', (req, res) => {
 })
 
 router.post('/signup',
-	body('username').trim().toLowerCase().blacklist(blacklist).escape(),
+	body('username').trim().toLowerCase().escape(),
 	body('firstName').trim().escape(),
 	body('lastName').trim().escape(),
 	body('password').trim(),
@@ -25,7 +25,7 @@ router.post('/signup',
 	async (req, res) => {
 		try {
 			const errors = validationResult(req);
-			if (!errors.isEmpty()) throw new Error(errors);
+			if (!errors.isEmpty()) throw (errors.array().map(x => ({ message: x.msg })))
 
 			const userData = req.body;
 			const result = await signup(userData);
@@ -33,20 +33,19 @@ router.post('/signup',
 			res.json(result);
 
 		} catch (err) {
-			// TODO Add ErrorMapper
 			res.status(400).json({
-				message: err.message || 'Something went wrong'
+				errors: mapErrors(err),
 			})
 		}
 	});
 
 router.post('/login',
-	body('username').trim().not().isEmpty().toLowerCase().escape(),
-	body('password').trim().not().isEmpty().escape(),
+	body('username').trim().toLowerCase().escape(),
+	body('password').trim().escape(),
 	async (req, res) => {
 		try {
 			const errors = validationResult(req);
-			if (!errors.isEmpty()) throw new Error();
+			if (!errors.isEmpty()) throw (errors.array().map(x => ({ message: x.msg })))
 
 			const userData = req.body;
 			const result = await login(userData.username, userData.password);
@@ -54,7 +53,7 @@ router.post('/login',
 			res.json(result);
 
 		} catch (err) {
-			return res.status(401).json({ message: 'Incorrect username or password' });
+			return res.status(401).json({ errors: mapErrors(err), });
 		}
 	}
 );

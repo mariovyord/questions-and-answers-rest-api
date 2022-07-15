@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
 exports.signup = async (userData) => {
-	const existing = await User.findOne({ username: new RegExp(userData.username, 'i') });
+	const existing = await User.findOne({ username: userData.username.toLowerCase() });
 
 	if (existing) {
 		throw new Error('Username already exists')
