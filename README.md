@@ -14,7 +14,7 @@ The REST Api powers the app by providing an auth and a data service. Data is sto
 	- POST: '/logout'
 
 ## Data service
-Basic structure: '/api/collections/:collection/:_id'
+Basic structure: `'/api/collections/:collection/:_id'`
 
 **Response is always an object with two or more properties! It always has message and a result.**
 
@@ -93,9 +93,6 @@ GET /collections/answers?count=true
 - body
 - owner, ref: 'User'
 - circle, ref: 'Circle'
-- meta: {
-	circle,
-}
 - hidden (from profile)
 * Can be deleted only if there are no answers
 
@@ -103,10 +100,6 @@ GET /collections/answers?count=true
 - body
 - owner, ref: 'User'
 - parent, ref: 'Question'
-- meta: {
-	question,
-	circle,
-}
 - upvotes, Array, ref: 'User'
 - downvotes, Array, ref: 'User'
 - total score (calculated)
