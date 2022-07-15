@@ -80,12 +80,12 @@ async function createSession(userData) {
 		accessToken: jwt.sign(
 			user,
 			process.env.JWT_SECRET,
-			{ expiresIn: '30s' }
+			{ expiresIn: '5m' }
 		),
 		refreshToken: jwt.sign(
 			user,
 			process.env.JWT_REFRESH_SECRET,
-			{ expiresIn: '30d' }
+			{ expiresIn: '7d' }
 		)
 	};
 
