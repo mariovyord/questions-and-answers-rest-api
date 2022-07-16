@@ -138,7 +138,6 @@ GET /collections/answers?count=true
 - description
 - imageUrl
 - role ['user', 'moderator', 'admin']
-- score
 - password
 
 ### Question model
@@ -146,7 +145,8 @@ GET /collections/answers?count=true
 - owner, ref: 'User'
 - circle, ref: 'Circle'
 - hidden (from profile)
-* Can be deleted only if there are no answers
+
+*Can be deleted only if there are no answers*
 
 ### Answer model
 - body
@@ -166,6 +166,7 @@ GET /collections/answers?count=true
 - imageUrl
 - description
 - owner, ref: 'User'
-* Can be deleted only if there are no answers
+
+*Can be deleted only if there are no answers*
 
 
