@@ -30,7 +30,7 @@ exports.getAll = async (collection, query) => {
 
 	// Pagination
 	const pagination = {
-		limit: 20,
+		limit: 10,
 		skip: 0,
 	}
 	if (query.offset && query.pageSize) {

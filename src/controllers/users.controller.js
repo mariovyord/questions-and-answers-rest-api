@@ -19,7 +19,7 @@ router.get('/users/:_id', authenticateToken(), async (req, res) => {
 });
 
 // For now works only for imageUrl change
-router.patch('/user/:_id',
+router.patch('/users/:_id',
 	body('imageUrl').trim(),
 	authenticateToken(),
 	async (req, res) => {

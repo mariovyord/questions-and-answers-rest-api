@@ -1,22 +1,61 @@
-# REST Api for Questions and Answers Web App
+# **REST Api for Questions and Answers Web App**
 Questions and Answers is a React Single Page App, where you can ask a question and have other users answer. Inspired by Quora.
 
 The REST Api powers the app by providing an auth and a data service. Data is stored in MongoDB Atlas. The api itself is deployed on Heroku.
 
-## Root
-- Route: '/api'
-- Returns REST Api meta data
+For educational purposes only!
 
-## Auth
-- Route: '/api/auth'
-	- POST: '/signup', 
-	- POST: '/login', 
-	- POST: '/logout'
+- Route: `/api` returns REST Api meta data.
 
-## Data service
+## **Authorized Requests**
+
+Some of the endpoints require for you to make authorized requests (marked below). To do so, add header `X-Auth-Token` with the access token, returned by the service upon login or signup.
+
+Example: 
+
+```
+X-Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+```
+
+Access Tokens have short lifespan! To get new pair of tokens, send `POST` request to `/api/auth/token` with Refresh Token in JSON body. Include the `X-Auth-Token` header!
+
+Example: 
+
+```
+{
+	refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+}
+```
+
+## **Auth service**
+
+`GET '/api/auth` - Returns auth endpoints.
+
+### **Sign up**
+- `POST /api/auth/signup` - Create new user. For User model check below. Returns Access Token and Refresh Token. If error occurs, returns `status 400` and errors array.
+
+### **Log in**
+- `POST /api/auth/login` - Log in user with **username** and **password**. Returns Access Token and Refresh Token. Stores Refresh Token in DB and matches it with user ID. If error occurs, returns `status 401` and errors array.
+
+
+### **Log out**
+- `DELETE /api/auth/logout` - Log out user with Refresh Token. Deletes Refresh Token in DB and ends session. Returns `status 204` if succesfull. If error occurs, returns `status 400`.
+
+### **Get new tokens**
+- `POST /api/auth/token` - Send Refresh Token in body and get new Access Token. Returns new pair of tokens. If error occurs, returns `status 401` or `403`.
+
+## **User data service**
+
+### **GET**
+- `GET /api/users/:_id` - Returns data for user with matching ID. Only owners can retreive the full user data, others get it limited to publicly available information. If error occurs, returns `status 400`.
+
+### **PATCH**
+- `PATCH /api/users/:_id` - For now limited to changing imageUrl property. For owners only. If error occurs, returns `status 401`.
+
+## **Data service**
 Basic structure: `'/api/collections/:collection/:_id'`
 
-**Response is always an object with two or more properties! It always has message and a result.**
+**The response from the data service is always an object with two or more properties! At minimum it has message and result.**
 
 ### **GET**
 
@@ -52,7 +91,7 @@ GET /collections/answers?where=owner%3D%228f414b4fab394d36bedb2ad69da9c830%22
 ```
 ### `PAGINATION`
 
-*By default the service returns 20 entries.*
+*By default the service returns 10 entries.*
 
 Append `offset={skip}&pageSize={take}` to the query parameters, where `{skip}` is the number of entries to skip and `{take}` is the number of entries to return.
 
