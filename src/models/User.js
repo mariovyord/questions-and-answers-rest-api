@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const beautifyUnique = require('mongoose-beautiful-unique-validation');
 
 const userSchema = new mongoose.Schema({
 	username: {
@@ -60,6 +61,8 @@ const userSchema = new mongoose.Schema({
 },
 	{ timestamps: true }
 )
+
+userSchema.plugin(beautifyUnique);
 
 userSchema.methods.comparePassword = async function (password) {
 	return bcrypt.compare(password, this.password);
