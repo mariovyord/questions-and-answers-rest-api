@@ -11,7 +11,7 @@ const questionSchema = new Schema({
 		ref: 'User',
 		required: [true, 'Owner ID is required'],
 	},
-	parent: {
+	circle: {
 		type: ObjectId,
 		ref: 'Circle',
 		required: [true, 'Circle ID is required']

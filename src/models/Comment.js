@@ -11,7 +11,7 @@ const commentSchema = new Schema({
 		ref: 'User',
 		required: [true, 'Owner ID is required'],
 	},
-	parent: {
+	answer: {
 		type: ObjectId,
 		ref: 'Answer',
 		required: [true, 'Answer ID is required']
