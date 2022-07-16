@@ -71,6 +71,19 @@ Basic structure: `'/api/collections/:collection/:_id'`
 ### **DELETE**
 - `DELETE /api/collections/:collection/:_id` - Delete item with matching ID. Returns status 202 and a message.
 
+### **VOTE**
+- `PATCH /api/collections/:collection/:_id/vote` - Upvote/downvote item in collection (for now only Answer data model support this feauture). Send JSON as shown below. If both are `true`, only upvote will register in DB.
+
+Example:
+
+```
+{
+    "upvote": {Boolean},
+    "downvote": {Boolean}
+}
+```
+
+
 ## Query parameters
 
 ### `SORT` 
