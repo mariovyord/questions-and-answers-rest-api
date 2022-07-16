@@ -87,6 +87,26 @@ router.put('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	}
 });
 
+router.patch('/:collection/:_id/vote',
+	body('upvote').not().isEmpty().isBoolean(),
+	body('downvote').not().isEmpty().isBoolean(),
+	authenticateToken(),
+	async (req, res, next) => {
+		try {
+			const collection = req.params.collection;
+			const itemId = req.params._id;
+			const userId = res.locals.user._id;
+			const vote = req.body;
+			const result = await collectionsService.vote(collection, itemId, userId, vote);
+			res.json({
+				message: `Voted for item in ${collection}`,
+				result: result,
+			});
+		} catch (err) {
+			next(err);
+		}
+	});
+
 router.delete('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	try {
 		const collection = req.params.collection;

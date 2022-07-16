@@ -107,3 +107,18 @@ exports.delete = async (collection, _id, userId) => {
 	item.remove()
 }
 
+exports.vote = async (collection, itemId, userId, vote) => {
+	const item = await collections[collection].findById(itemId);
+	item.upvotes = item.upvotes.filter(x => x._id != userId);
+	item.downvotes = item.upvotes.filter(x => x._id != userId);
+
+	if (vote.upvote) {
+		item.upvotes.push(userId);
+	} else {
+		item.downvotes.push(userId);
+	}
+	item.save();
+
+	return item;
+}
+
