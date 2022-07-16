@@ -16,10 +16,20 @@ const questionSchema = new Schema({
 		ref: 'Circle',
 		required: [true, 'Circle ID is required']
 	},
+	meta: {
+		circle: {
+			type: String,
+			required: [true, 'Circle is required'],
+		},
+	},
 	isHidden: {
 		type: Boolean,
 		default: false,
-	}
+	},
+	isEditDisabled: {
+		type: Boolean,
+		default: false,
+	},
 },
 	{ timestamps: true }
 )

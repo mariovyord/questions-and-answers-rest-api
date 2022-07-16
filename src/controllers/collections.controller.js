@@ -19,41 +19,44 @@ router.get('/', (req, res, next) => {
 	});
 });
 
-router.get('/:collection',
-	body('body').trim().escape(),
-	body('title').trim().escape(),
-	body('description').trim().escape(),
-	async (req, res, next) => {
-		try {
-			const collection = req.params.collection;
-			const query = req.query;
-			const result = await collectionsService.getAll(collection, query);
-
-			res.json({
-				message: `List of ${collection}`,
-				result: result,
-			})
-
-		} catch (err) {
-			next(err);
-		}
-	})
-
-router.post('/:collection', authenticateToken(), async (req, res, next) => {
+router.get('/:collection', async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
-		const data = req.body;
-		const result = await collectionsService.create(collection, data);
+		const query = req.query;
+		const result = await collectionsService.getAll(collection, query);
 
-		res.status(201)
-			.json({
-				message: `Created item in ${collection}`,
-				result: result,
-			});
+		res.json({
+			message: `List of ${collection}`,
+			result: result,
+		})
+
 	} catch (err) {
 		next(err);
 	}
-});
+})
+
+router.post('/:collection',
+	body('body').trim().escape(),
+	body('title').trim().escape(),
+	body('description').trim().escape(),
+	body('meta.question').trim().escape(),
+	body('meta.circle').trim().escape(),
+	authenticateToken(),
+	async (req, res, next) => {
+		try {
+			const collection = req.params.collection;
+			const data = req.body;
+			const result = await collectionsService.create(collection, data);
+
+			res.status(201)
+				.json({
+					message: `Created item in ${collection}`,
+					result: result,
+				});
+		} catch (err) {
+			next(err);
+		}
+	});
 
 router.get('/:collection/:_id', async (req, res, next) => {
 	try {

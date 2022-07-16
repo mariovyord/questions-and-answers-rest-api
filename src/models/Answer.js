@@ -22,6 +22,16 @@ const answerSchema = new Schema({
 		ref: 'User',
 		default: [],
 	},
+	meta: {
+		question: {
+			type: String,
+			required: [true, 'Question is required'],
+		},
+		circle: {
+			type: String,
+			required: [true, 'Circle is required'],
+		},
+	},
 	downvotes: {
 		type: [ObjectId],
 		ref: 'User',

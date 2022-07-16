@@ -24,7 +24,11 @@ const circleSchema = new Schema({
 		type: String,
 		enum: ['user', 'core'],
 		default: 'user',
-	}
+	},
+	isEditDisabled: {
+		type: Boolean,
+		default: false,
+	},
 },
 	{ timestamps: true }
 )

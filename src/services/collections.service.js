@@ -44,7 +44,7 @@ exports.getAll = async (collection, query) => {
 	if (query.populate) {
 		populate += query.populate;
 
-		if (query.populate === 'owner') {
+		if (query.populate.includes('owner')) {
 			limitPopulate += 'firstName lastName imageUrl'
 		}
 	}
