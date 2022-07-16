@@ -42,15 +42,15 @@ Example:
 - `DELETE /api/auth/logout` - Log out user with Refresh Token. Deletes Refresh Token in DB and ends session. Returns `status 204` if succesfull. If error occurs, returns `status 400`.
 
 ### **Get new tokens**
-- `POST /api/auth/token` - Send Refresh Token in body and get new Access Token. Returns new pair of tokens. If error occurs, returns `status 401` or `403`.
+- `POST /api/auth/token` - Send Refresh Token in body and get new Access Token. Returns new pair of tokens. If error occurs, returns `status 401` or `403`. **Authorized request!**
 
 ## **User data service**
 
 ### **GET**
-- `GET /api/users/:_id` - Returns data for user with matching ID. Only owners can retreive the full user data, others get it limited to publicly available information. If error occurs, returns `status 400`.
+- `GET /api/users/:_id` - Returns data for user with matching ID. Only owners can retreive the full user data, others get it limited to publicly available information. If error occurs, returns `status 400`. **Authorized request!**
 
 ### **PATCH**
-- `PATCH /api/users/:_id` - For now limited to changing imageUrl property. For owners only. If error occurs, returns `status 401`.
+- `PATCH /api/users/:_id` - For now limited to changing imageUrl property. For owners only. If error occurs, returns `status 401`. **Authorized request!**
 
 ## **Data service**
 Basic structure: `'/api/collections/:collection/:_id'`
@@ -63,16 +63,16 @@ Basic structure: `'/api/collections/:collection/:_id'`
 - `GET /api/collections/:collection/:id` - Returns object with a message and a result with matching ID; Returns status 404 if there are is no result.
 
 ### **POST** 
-- `POST /api/collections/:collection` - Create new item in the chosen collection. Returns the created item.
+- `POST /api/collections/:collection` - Create new item in the chosen collection. Returns the created item. **Authorized request!**
 
 ### **PUT**
-- `PUT /api/collections/:collection/:_id` - Update item with matching ID. Returns the updated item.
+- `PUT /api/collections/:collection/:_id` - Update item with matching ID. Returns the updated item. **Authorized request!**
 
 ### **DELETE**
-- `DELETE /api/collections/:collection/:_id` - Delete item with matching ID. Returns status 202 and a message.
+- `DELETE /api/collections/:collection/:_id` - Delete item with matching ID. Returns status 202 and a message. **Authorized request!**
 
 ### **VOTE**
-- `PATCH /api/collections/:collection/:_id/vote` - Upvote/downvote item in collection (for now only Answer data model support this feauture). Send JSON as shown below. If both are `true`, only upvote will register in DB.
+- `PATCH /api/collections/:collection/:_id/vote` - Upvote/downvote item in collection (for now only Answer data model support this feauture). Send JSON as shown below. If both are `true`, only upvote will register in DB. **Authorized request!**
 
 Example:
 
