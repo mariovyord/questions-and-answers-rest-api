@@ -60,7 +60,6 @@ exports.getAll = async (collection, query) => {
 
 	// Return count if specified
 	if (query.count === 'true') {
-		console.log(query.count)
 		return result.countDocuments();
 	}
 
