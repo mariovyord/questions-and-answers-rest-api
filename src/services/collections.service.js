@@ -33,9 +33,10 @@ exports.getAll = async (collection, query) => {
 		limit: 10,
 		skip: 0,
 	}
-	if (query.offset && query.pageSize) {
-		pagination.skip = parseInt(query.offset);
+
+	if (query.page && query.pageSize) {
 		pagination.limit = parseInt(query.pageSize);
+		pagination.skip = Math.max(0, (parseInt(query.page) - 1)) * pagination.limit;
 	}
 
 	// Populate properties

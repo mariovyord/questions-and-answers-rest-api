@@ -90,7 +90,7 @@ router.put('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	}
 });
 
-router.patch('/:collection/:_id/vote',
+router.post('/:collection/:_id/vote',
 	body('upvote').not().isEmpty().isBoolean(),
 	body('downvote').not().isEmpty().isBoolean(),
 	authenticateToken(),

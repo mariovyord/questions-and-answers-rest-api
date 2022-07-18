@@ -106,11 +106,11 @@ GET /collections/answers?where=owner%3D%228f414b4fab394d36bedb2ad69da9c830%22
 
 *By default the service returns 10 entries.*
 
-Append `offset={skip}&pageSize={take}` to the query parameters, where `{skip}` is the number of entries to skip and `{take}` is the number of entries to return.
+Append `page={pageNumber}&pageSize={entries}` to the query parameters, where `{pageNumber}` is the number of entries to skip and `{entries}` is the number of entries to return.
 
 Example: Second page of entries from the answers collection, assuming 10 entries per page:
 ```
-GET /collections/answers?offset=10&pageSize=10
+GET /collections/answers?page=2&pageSize=10
 ```
 
 ### `POPULATE`
