@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const authController = require('./controllers/auth.controller');
 const collectionsController = require('./controllers/collections.controller');
-// const { authenticateToken } = require('./middleware/auth.middleware');
+const usersController = require('./controllers/users.controller');
 
 router.use((req, res, next) => {
 	console.log('>>>', req.method, req.url);
@@ -22,6 +22,8 @@ router.get('/api', (req, res) => {
 });
 
 router.use('/api/collections', collectionsController);
+
+router.use('/api/users', usersController);
 
 router.use('/api/auth', authController);
 

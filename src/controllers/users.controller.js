@@ -3,23 +3,27 @@ const { body } = require('express-validator');
 const { authenticateToken } = require('../middleware/auth.middleware');
 const { getUserData, patchUserData } = require('../services/users.service');
 
-router.get('/users/:_id', authenticateToken(), async (req, res) => {
+router.get('/:_id', authenticateToken(), async (req, res) => {
 	try {
 		const userId = res.locals.user._id;
 		const requestUserId = req.params._id;
+
 		let isOwner = false;
 		if (userId == requestUserId) isOwner = true;
 
 		const userData = await getUserData(requestUserId, isOwner);
 
-		res.json(userData);
+		res.json({
+			message: 'User data',
+			result: userData
+		});
 	} catch (err) {
 		res.sendStatus(400);
 	}
 });
 
 // For now works only for imageUrl change
-router.patch('/users/:_id',
+router.patch('/:_id',
 	body('imageUrl').trim(),
 	authenticateToken(),
 	async (req, res) => {
@@ -32,8 +36,14 @@ router.patch('/users/:_id',
 			const data = req.body;
 			const userData = await patchUserData(userId, data);
 
-			res.json(userData);
+			res.json({
+				message: 'User data updated',
+				result: userData
+			});
 		} catch (err) {
 			res.sendStatus(401);
 		}
-	});
+	}
+);
+
+module.exports = router;
