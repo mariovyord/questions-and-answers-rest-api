@@ -119,7 +119,8 @@ exports.vote = async (collection, itemId, userId, vote) => {
 	} else if (vote.downvote) {
 		item.downvotes.push(userId);
 	}
-	item.save();
+
+	await item.save();
 
 	return item;
 }
