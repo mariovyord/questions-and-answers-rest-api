@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 const { authenticateToken } = require('../middleware/auth.middleware');
 const { getUserData, patchUserData } = require('../services/users.service');
 
-router.get('/:_id', authenticateToken(), async (req, res) => {
+router.get('/:_id', authenticateToken(), async (req, res, next) => {
 	try {
 		const userId = res.locals.user._id;
 		const requestUserId = req.params._id;
@@ -18,7 +18,7 @@ router.get('/:_id', authenticateToken(), async (req, res) => {
 			result: userData
 		});
 	} catch (err) {
-		res.sendStatus(400);
+		next(err);
 	}
 });
 
@@ -26,7 +26,7 @@ router.get('/:_id', authenticateToken(), async (req, res) => {
 router.patch('/:_id',
 	body('imageUrl').trim(),
 	authenticateToken(),
-	async (req, res) => {
+	async (req, res, next) => {
 		try {
 			const userId = res.locals.user._id;
 			const requestUserId = req.params._id;
@@ -41,7 +41,7 @@ router.patch('/:_id',
 				result: userData
 			});
 		} catch (err) {
-			res.sendStatus(401);
+			next(err);
 		}
 	}
 );

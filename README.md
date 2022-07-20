@@ -35,14 +35,14 @@ Example:
 - `POST /api/auth/signup` - Create new user. For User model check below. Returns Access Token and Refresh Token. If error occurs, returns `status 400` and errors array.
 
 ### **Log in**
-- `POST /api/auth/login` - Log in user with **username** and **password**. Returns Access Token and Refresh Token. Stores Refresh Token in DB and matches it with user ID. If error occurs, returns `status 401` and errors array.
+- `POST /api/auth/login` - Log in user with **username** and **password**. Returns Access Token and Refresh Token. Stores Refresh Token in DB and matches it with user ID. If error occurs, returns `status 401`.
 
 
 ### **Log out**
 - `DELETE /api/auth/logout` - Log out user with Refresh Token. Deletes Refresh Token in DB and ends session. Returns `status 204` if succesfull. If error occurs, returns `status 400`.
 
 ### **Get new tokens**
-- `POST /api/auth/token` - Send Refresh Token in body and get new Access Token. Returns new pair of tokens. If error occurs, returns `status 401` or `403`. **Authorized request!**
+- `POST /api/auth/token` - Send Refresh Token in body and get new Access Token. Returns new pair of tokens. If error occurs, returns `status 401` or `403`. 
 
 ## **User data service**
 
@@ -82,7 +82,6 @@ Example:
     "downvote": {Boolean}
 }
 ```
-
 
 ## Query parameters
 
@@ -128,6 +127,10 @@ Example:
 ```
 GET /collections/answers?count=true
 ```
+
+## **Error handling**
+
+The services return corresponding HTTP response status codes. If error occurs, the resulting json has `message` (string error summary) and `errors` (array with all the errors).
 
 ## Data models
 

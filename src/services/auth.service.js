@@ -15,8 +15,10 @@ exports.signup = async (userData) => {
 	const user = new User(userData);
 	await user.save();
 
+	const session = await createSession(user);
+
 	return {
-		tokens: createSession(user),
+		...session,
 		_id: user._id,
 	};
 }
@@ -34,8 +36,10 @@ exports.login = async (username, password) => {
 		throw new Error('Incorrect username or password');
 	}
 
+	const session = await createSession(user);
+
 	return {
-		tokens: await createSession(user),
+		...session,
 		_id: user._id,
 	};
 }

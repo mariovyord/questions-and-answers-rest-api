@@ -29,12 +29,17 @@ router.post('/signup',
 			const userData = req.body;
 			const result = await signup(userData);
 
-			res.json(result);
+			res.json({
+				message: 'Sign up successful',
+				result: result,
+			});
 
 		} catch (err) {
-			res.status(400).json({
-				errors: mapErrors(err),
-			})
+			res.status(400)
+				.json({
+					message: 'Sign up failed',
+					errors: mapErrors(err),
+				})
 		}
 	});
 
@@ -49,10 +54,17 @@ router.post('/login',
 			const userData = req.body;
 			const result = await login(userData.username, userData.password);
 
-			res.json(result);
+			res.json({
+				message: 'Login successful',
+				result: result,
+			});
 
 		} catch (err) {
-			return res.status(401).json({ errors: mapErrors(err), });
+			return res.status(401)
+				.json({
+					message: 'Login up failed',
+					errors: mapErrors(err),
+				});
 		}
 	}
 );
@@ -78,9 +90,16 @@ router.post('/token',
 				code: 403
 			});
 
-			res.json(newTokens);
+			res.json({
+				message: 'Refresing tokens successful',
+				result: newTokens
+			});
 		} catch (err) {
-			return res.sendStatus(err.code || 401);
+			return res.status(err.code || 401)
+				.json({
+					message: 'Refresing tokens failed',
+					errors: mapErrors(err),
+				});
 		}
 	}
 );
@@ -94,9 +113,18 @@ router.delete('/logout',
 			if (!errors.isEmpty()) throw new Error();
 
 			await logout(req.body.refreshToken);
-			res.sendStatus(204);
+
+			res.status(204)
+				.json({
+					message: 'Logout successful',
+				});
+
 		} catch (err) {
-			res.sendStatus(400);
+			res.status(400)
+				.json({
+					message: 'Logout failed',
+					errors: mapErrors(err),
+				});
 		}
 	}
 )
