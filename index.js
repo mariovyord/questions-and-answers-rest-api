@@ -23,8 +23,3 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 
 	app.listen(port, () => console.log('Server is listening on port ' + port));
 })();
-
-/* 
-TODO
-1. Add Helmet Js
-*/

@@ -76,7 +76,6 @@ exports.create = async (collection, data) => {
 	return result;
 }
 
-// TODO Disabled editing and deleting on questions and circles if they have children
 exports.update = async (collection, _id, data, userId) => {
 	const result = await collections[collection].findById(_id);
 
@@ -100,7 +99,6 @@ exports.update = async (collection, _id, data, userId) => {
 	return result;
 }
 
-// TODO Disabled editing and deleting on questions and circles if they have children
 exports.delete = async (collection, _id, userId) => {
 	const item = await collections[collection].findById(_id);
 
