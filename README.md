@@ -135,34 +135,35 @@ The services return corresponding HTTP response status codes. If error occurs, t
 ## Data models
 
 ### User Model
-- username
-- firstName
-- lastName
+- username*
+- firstName*
+- lastName*
+- password*
 - description
 - imageUrl
 - role ['user', 'moderator', 'admin']
-- password
 
 ### Question model
 - body
 - owner, ref: 'User'
 - circle, ref: 'Circle'
+- meta: { circle: String }
 - hidden (from profile)
-
-*Can be deleted only if there are no answers*
 
 ### Answer model
 - body
 - owner, ref: 'User'
-- parent, ref: 'Question'
+- question, ref: 'Question'
+- circle, ref: 'Circle'
+- meta: { question: String, circle: String }
 - upvotes, Array, ref: 'User'
 - downvotes, Array, ref: 'User'
-- total score (calculated)
+- score (auto calculated)
 
 ### Comment model
-- body (only text)
+- body
 - owner, ref: 'User
-- parent, ref: 'Answer'
+- answer, ref: 'Answer'
 
 ### Circle model
 - title
@@ -170,6 +171,5 @@ The services return corresponding HTTP response status codes. If error occurs, t
 - description
 - owner, ref: 'User'
 
-*Can be deleted only if there are no answers*
 
 
