@@ -8,12 +8,16 @@ exports.getUserData = async (userId, isOwner) => {
 	}
 }
 
-// Only for imageUrl
 exports.patchUserData = async (userId, data) => {
 	const user = await User.findById(userId).select('-password -__v');
-	if (data.imageUrl) {
-		user.imageUrl = data.imageUrl;
-		await user.save();
-		return user;
-	}
+
+	// TODO Add change password option
+	user.firstName = data.firstName || user.firstName;
+	user.lastName = data.lastName || user.lastName;
+	user.imageUrl = data.imageUrl || user.imageUrl;
+	user.description = data.description || user.description;
+
+	await user.save();
+	return user;
+
 }
