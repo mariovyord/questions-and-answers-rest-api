@@ -74,13 +74,14 @@ router.get('/:collection/:_id', async (req, res, next) => {
 	}
 })
 
-router.put('/:collection/:_id', authenticateToken(), async (req, res, next) => {
+router.patch('/:collection/:_id', authenticateToken(), async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
 		const _id = req.params._id;
 		const userId = res.locals.user._id;
 
 		const result = await collectionsService.update(collection, _id, req.body, userId);
+
 		res.json({
 			message: `Updated item in ${collection}`,
 			result: result,

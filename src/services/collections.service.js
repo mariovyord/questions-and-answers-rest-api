@@ -83,16 +83,16 @@ exports.update = async (collection, _id, data, userId) => {
 	if (result.owner != userId) throw new Error('Only owners can update items!')
 
 	if (collection === 'answers') {
-		result.body = data.body;
+		result.body = data.body || result.body;
 	} else if (collection === 'questions') {
-		result.body = data.body;
-		result.parent = data.parent;
+		result.body = data.body || result.body;
+		result.parent = data.parent || result.parent;
 	} else if (collection === 'circles') {
-		result.title = data.title;
-		result.imageUrl = data.imageUrl;
-		result.description = data.description;
+		result.title = data.title || result.title;
+		result.imageUrl = data.imageUrl || result.imageUrl;
+		result.description = data.description || result.description;
 	} else if (collection === 'comments') {
-		result.body = data.body;
+		result.body = data.body || result.body;
 	}
 
 	await result.save();
