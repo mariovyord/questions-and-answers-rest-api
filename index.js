@@ -14,6 +14,7 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 
 	await require('./src/config/database')(connectionString);
 
+	app.enable('trust proxy');
 	app.use(cors());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
