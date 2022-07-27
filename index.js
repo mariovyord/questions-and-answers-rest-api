@@ -5,7 +5,7 @@ var cors = require('cors')
 const router = require('./src/router');
 const { handleError } = require('./src/middleware/handleErrors.middleware');
 
-const port = process.env.CONNECTION_STRING || 3030;
+const port = process.env.PORT || 3030;
 
 const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/questions-and-answers';
 
