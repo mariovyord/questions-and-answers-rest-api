@@ -66,8 +66,21 @@ exports.getAll = async (collection, query) => {
 	return result;
 }
 
-exports.getOne = async (collection, _id) => {
-	return collections[collection].findById(_id);
+exports.getOne = async (collection, _id, query) => {
+	// Populate properties
+	let populate = '';
+	let limitPopulate = ''
+
+	if (query.populate) {
+		populate += query.populate;
+
+		if (query.populate.includes('owner')) {
+			limitPopulate += 'firstName lastName imageUrl'
+		}
+	}
+	return collections[collection]
+		.findById(_id)
+		.populate(populate, limitPopulate);
 }
 
 exports.create = async (collection, data) => {

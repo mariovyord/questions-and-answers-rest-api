@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
 	description: {
 		type: String,
 		maxlength: 60,
+		default: '',
 	},
 	imageUrl: {
 		type: String,
