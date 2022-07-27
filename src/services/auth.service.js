@@ -89,13 +89,13 @@ async function createSession(userData) {
 	const result = {
 		accessToken: jwt.sign(
 			user,
-			process.env.JWT_SECRET,
+			`${process.env.JWT_SECRET}`,
 			// TODO Make expiration time 5m
 			{ expiresIn: '5m' }
 		),
 		refreshToken: jwt.sign(
 			user,
-			process.env.JWT_REFRESH_SECRET,
+			`${process.env.JWT_REFRESH_SECRET}`,
 			{ expiresIn: '7d' }
 		)
 	};
