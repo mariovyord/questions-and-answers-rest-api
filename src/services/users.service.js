@@ -12,6 +12,7 @@ exports.patchUserData = async (userId, data) => {
 	const user = await User.findById(userId).select('-password -__v');
 
 	// TODO Add change password option
+	user.username = data.username || user.username;
 	user.firstName = data.firstName || user.firstName;
 	user.lastName = data.lastName || user.lastName;
 	user.imageUrl = data.imageUrl || user.imageUrl;

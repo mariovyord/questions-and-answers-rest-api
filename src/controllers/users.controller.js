@@ -22,8 +22,8 @@ router.get('/:_id', authenticateToken(), async (req, res, next) => {
 	}
 });
 
-// For now works only for imageUrl change
-router.patch('/:_id',
+// TODO Fix Cors for patch requests
+router.put('/:_id',
 	body('firstName').trim().escape(),
 	body('lastName').trim().escape(),
 	body('description').trim().escape(),

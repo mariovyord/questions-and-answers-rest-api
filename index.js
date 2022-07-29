@@ -16,7 +16,9 @@ const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:2
 
 	app.enable('trust proxy');
 	app.use(cors());
-	app.use(express.json());
+	app.use(express.json({
+		limit: '300kb'
+	}));
 	app.use(express.urlencoded({ extended: true }));
 
 	app.use(router);

@@ -51,8 +51,7 @@ const userSchema = new mongoose.Schema({
 	},
 	imageUrl: {
 		type: String,
-		// TODO Change default image
-		default: 'https://genslerzudansdentistry.com/wp-content/uploads/2015/11/anonymous-user.png'
+		default: 'https://imgur.com/73kg6yl'
 	},
 	role: {
 		type: String,

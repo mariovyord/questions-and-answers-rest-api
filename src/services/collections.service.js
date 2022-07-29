@@ -98,7 +98,7 @@ exports.update = async (collection, _id, data, userId) => {
 		result.body = data.body || result.body;
 	} else if (collection === 'questions') {
 		result.body = data.body || result.body;
-		result.parent = data.parent || result.parent;
+		result.isHidden = data.isHidden || result.isHidden;
 	} else if (collection === 'circles') {
 		result.title = data.title || result.title;
 		result.imageUrl = data.imageUrl || result.imageUrl;
