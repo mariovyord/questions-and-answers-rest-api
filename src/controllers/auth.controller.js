@@ -114,7 +114,7 @@ router.delete('/logout',
 
 			await logout(req.body.refreshToken);
 
-			res.status(204)
+			res.status(200)
 				.json({
 					message: 'Logout successful',
 				});
