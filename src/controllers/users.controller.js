@@ -23,7 +23,7 @@ router.get('/:_id', authenticateToken(), async (req, res, next) => {
 });
 
 // TODO Fix Cors for patch requests
-router.put('/:_id',
+router.patch('/:_id',
 	body('firstName').trim().escape(),
 	body('lastName').trim().escape(),
 	body('description').trim().escape(),

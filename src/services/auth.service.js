@@ -91,7 +91,7 @@ async function createSession(userData) {
 			user,
 			`${process.env.JWT_SECRET}`,
 			// TODO Make expiration time 5m
-			{ expiresIn: '5m' }
+			{ expiresIn: '1d' }
 		),
 		refreshToken: jwt.sign(
 			user,

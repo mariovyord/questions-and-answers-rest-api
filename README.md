@@ -65,8 +65,8 @@ Basic structure: `'/api/collections/:collection/:_id'`
 ### **POST** 
 - `POST /api/collections/:collection` - Create new item in the chosen collection. Returns the created item. **Authorized request!**
 
-### **PUT**
-- `PUT /api/collections/:collection/:_id` - Update item with matching ID. Returns the updated item. **Authorized request!**
+### **PATCH**
+- `PATCH /api/collections/:collection/:_id` - Update item with matching ID. Returns the updated item. **Authorized request!**
 
 ### **DELETE**
 - `DELETE /api/collections/:collection/:_id` - Delete item with matching ID. Returns status 202 and a message. **Authorized request!**
