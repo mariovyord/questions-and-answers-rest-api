@@ -8,7 +8,7 @@ var file = require('./data/circles.json');
 		useUnifiedTopology: true,
 	})
 
-	const Circle = require('../models/Circle');
+	const Circle = require('../src/models/Circle');
 
 	file.forEach(el => {
 		el._id = ObjectID(el._id)
