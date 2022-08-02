@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema({
 	},
 	imageUrl: {
 		type: String,
-		default: 'https://imgur.com/73kg6yl'
+		default: 'https://i.imgur.com/73kg6yl.png'
 	},
 	role: {
 		type: String,
