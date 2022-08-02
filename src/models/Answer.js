@@ -5,7 +5,7 @@ const answerSchema = new Schema({
 		type: String,
 		required: [true, `Answer can't be empty`],
 		minlength: [2, 'Minimum length is 2 characters'],
-		maxlength: [1500, 'Maximum length is 1500 characters']
+		// maxlength: [1500, 'Maximum length is 1500 characters']
 	},
 	owner: {
 		type: ObjectId,
