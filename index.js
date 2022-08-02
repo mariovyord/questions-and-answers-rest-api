@@ -7,8 +7,7 @@ const { handleError } = require('./src/middleware/handleErrors.middleware');
 
 const port = process.env.PORT || 3030;
 
-// const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/questions-and-answers';
-const connectionString = 'mongodb+srv://mario:mariopernik123@cluster0.mfybekg.mongodb.net/questions-and-answers';
+const connectionString = process.env.CONNECTION_STRING || 'mongodb://localhost:27017/questions-and-answers';
 
 (async function start() {
 	const app = express();
