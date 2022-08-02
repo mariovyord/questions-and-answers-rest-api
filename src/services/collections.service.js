@@ -60,7 +60,8 @@ exports.getAll = async (collection, query) => {
 
 	// Return count if specified
 	if (query.count === 'true') {
-		return result.countDocuments();
+		if (query.where) return result.count();
+		return result.estimatedDocumentCount();
 	}
 
 	return result;

@@ -23,6 +23,7 @@ router.get('/:collection', async (req, res, next) => {
 	try {
 		const collection = req.params.collection;
 		const query = req.query;
+
 		const result = await collectionsService.getAll(collection, query);
 
 		res.json({
