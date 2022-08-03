@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 router.get('/api', (req, res) => {
 	res.json({
-		message: 'Hello to Questions! REST Api',
+		message: 'Hello to Questions and Answers REST Api',
 		endpoints: ['/collections', '/auth', '/users']
 	})
 });
