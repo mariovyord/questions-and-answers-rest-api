@@ -128,6 +128,10 @@ Example:
 GET /collections/answers?count=true
 ```
 
+### `SELECT`
+
+*Coming Soon*
+
 ## **Error handling**
 
 The services return corresponding HTTP response status codes. If error occurs, the resulting json has `message` (string error summary) and `errors` (array with all the errors).
