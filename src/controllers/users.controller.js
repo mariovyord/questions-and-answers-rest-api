@@ -1,7 +1,21 @@
 const router = require('express').Router();
 const { body } = require('express-validator');
 const { authenticateToken } = require('../middleware/auth.middleware');
-const { getUserData, patchUserData } = require('../services/users.service');
+const { getUserData, patchUserData, getLeaderboard } = require('../services/users.service');
+
+router.get('/leaderboard', authenticateToken(), async (req, res, next) => {
+	try {
+		const leaderboard = await getLeaderboard();
+
+		res.json({
+			message: 'Leaderboard - Top 100',
+			result: leaderboard || [],
+		});
+
+	} catch (err) {
+		next(err);
+	}
+});
 
 router.get('/:_id', authenticateToken(), async (req, res, next) => {
 	try {
@@ -22,7 +36,6 @@ router.get('/:_id', authenticateToken(), async (req, res, next) => {
 	}
 });
 
-// TODO Fix Cors for patch requests
 router.patch('/:_id',
 	body('firstName').trim().escape(),
 	body('lastName').trim().escape(),

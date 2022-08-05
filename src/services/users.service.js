@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Answer = require('../models/Answer');
 
 exports.getUserData = async (userId, isOwner) => {
 	if (isOwner) {
@@ -21,4 +22,48 @@ exports.patchUserData = async (userId, data) => {
 	await user.save();
 	return user;
 
+}
+
+exports.getLeaderboard = async () => {
+	const aggr = [
+		{
+			'$project': {
+				'_id': 0,
+				'owner': 1,
+				'score': 1
+			}
+		}, {
+			'$group': {
+				'_id': '$owner',
+				'totalScore': {
+					'$sum': '$score'
+				}
+			}
+		}, {
+			'$sort': {
+				'totalScore': -1
+			}
+		}, {
+			'$limit': 100
+		}, {
+			'$lookup': {
+				'from': 'users',
+				'localField': '_id',
+				'foreignField': '_id',
+				'as': 'user',
+				'pipeline': [
+					{
+						'$project': {
+							'_id': 0,
+							'username': 1,
+							'firstName': 1,
+							'lastName': 1
+						}
+					}
+				]
+			}
+		}
+	]
+
+	return (await Answer.aggregate(aggr)).map(x => ({ ...x, user: x.user[0] }));
 }

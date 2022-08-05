@@ -52,6 +52,9 @@ Example:
 ### **PATCH**
 - `PATCH /api/users/:_id` - For now limited to changing imageUrl property. For owners only. If error occurs, returns `status 401`. **Authorized request!**
 
+### **GET LEADERBOARD**
+- `GET /api/users/leaderboard` - Returns Top 100 users leaderboard, sorted by total score. Score is accumulated by getting votes for answers.  **Authorized request!**
+
 ## **Data service**
 Basic structure: `'/api/collections/:collection/:_id'`
 
