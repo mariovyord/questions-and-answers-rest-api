@@ -8,7 +8,7 @@ router.get('/leaderboard', authenticateToken(), async (req, res, next) => {
 		const leaderboard = await getLeaderboard();
 
 		res.json({
-			message: 'Leaderboard - Top 100',
+			message: 'Leaderboard - Top 50',
 			result: leaderboard || [],
 		});
 

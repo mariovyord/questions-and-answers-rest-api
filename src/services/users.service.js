@@ -44,7 +44,7 @@ exports.getLeaderboard = async () => {
 				'totalScore': -1
 			}
 		}, {
-			'$limit': 100
+			'$limit': 50
 		}, {
 			'$lookup': {
 				'from': 'users',
