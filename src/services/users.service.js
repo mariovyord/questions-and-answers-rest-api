@@ -5,7 +5,7 @@ exports.getUserData = async (userId, isOwner) => {
 	if (isOwner) {
 		return User.findById(userId).select('-password -__v');
 	} else {
-		return User.findById(userId).select('-password -__v -username -role -createdAt -updatedAt');
+		return User.findById(userId).select('-password -__v -role -createdAt -updatedAt');
 	}
 }
 
