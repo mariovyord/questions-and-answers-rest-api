@@ -50,13 +50,20 @@ exports.getAll = async (collection, query) => {
 		}
 	}
 
+	// Select properties
+	let select = '';
+	if (query.select) {
+		select += query.select;
+	}
+
 	// Result
 	const result = collections[collection]
 		.find(options)
 		.sort(sort)
 		.limit(pagination.limit)
 		.skip(pagination.skip)
-		.populate(populate, limitPopulate);
+		.populate(populate, limitPopulate)
+		.select(select);
 
 	// Return count if specified
 	if (query.count === 'true') {

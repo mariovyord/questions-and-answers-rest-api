@@ -133,7 +133,11 @@ GET /collections/answers?count=true
 
 ### `SELECT`
 
-*Coming Soon*
+Append `select={property}` to the query parameters, where `{property}` is the property you want to select. You can add multiple properties, separated by space.
+Example:
+```
+GET /collections/answers?select=owner
+```
 
 ## **Error handling**
 
